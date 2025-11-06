@@ -1,0 +1,191 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "Poppins", "Segoe UI", sans-serif;
+}
+
+:root {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --bg-start: #e9f0f9;
+  --bg-end: #dce7f5;
+  --card-bg: #ffffff;
+  --text-color: #1e3a5f;
+  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+body {
+  background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--text-color);
+  padding: 30px;
+  transition: background 0.5s ease;
+}
+
+h1 {
+  margin-bottom: 30px;
+  color: var(--text-color);
+  font-weight: 700;
+  font-size: 2.5rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#mensagens {
+  list-style: none;
+  width: 100%;
+  max-width: 650px;
+  height: 65vh;
+  background: var(--card-bg);
+  border-radius: 18px;
+  padding: 25px;
+  overflow-y: auto;
+  box-shadow: var(--shadow-light);
+  border: none;
+  transform: translateY(0);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+#mensagens:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+#mensagens li {
+  background: #f0f7ff;
+  color: #333;
+  padding: 15px 20px;
+  border-radius: 20px 20px 20px 5px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  max-width: 90%;
+  word-wrap: break-word;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: background 0.3s ease, transform 0.2s ease;
+  transform-origin: left;
+}
+
+#mensagens li:hover {
+  transform: scale(1.01);
+}
+
+#mensagens li:nth-child(even) {
+  background: #e6e6e6;
+  margin-left: auto;
+  border-radius: 20px 20px 5px 20px;
+  transform-origin: right;
+}
+
+#mensagens::-webkit-scrollbar {
+  width: 10px;
+}
+
+#mensagens::-webkit-scrollbar-track {
+  background: var(--card-bg);
+  border-radius: 10px;
+}
+
+#mensagens::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  border: 2px solid var(--card-bg);
+}
+
+/* 🔄 Seção do Formulário Integrado (Nova) */
+form {
+  margin-top: 25px;
+  width: 100%;
+  max-width: 650px;
+  display: grid; /* Usando grid para layout mais compacto */
+  grid-template-columns: 1fr 4fr; /* Coluna para nome e coluna para mensagem/botão */
+  gap: 10px; /* Reduzi o espaçamento */
+  background: var(--card-bg); /* Fundo para integrar o formulário */
+  padding: 15px;
+  border-radius: 18px;
+  box-shadow: var(--shadow-light);
+}
+
+/* Novo container para input e botão no mesmo slot */
+.input-group {
+    grid-column: 2 / 3; /* Ocupa a segunda coluna no grid */
+    display: flex;
+    gap: 10px;
+}
+
+/* Manteve o input, mas precisa de um elemento HTML para envolver o nome */
+input:not(#message-input) { /* Se tiver um input de nome separado */
+    grid-column: 1 / 2;
+}
+
+/* Estilos de entrada (reaplicados para novos elementos) */
+input, textarea {
+  padding: 15px;
+  border: 1px solid #cce0ff;
+  border-radius: 10px;
+  background: #f7faff;
+  color: var(--text-color);
+  font-size: 17px;
+  transition: 0.3s;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  width: 100%; /* Garante que ocupe o espaço */
+}
+
+input:focus, textarea:focus {
+  background: var(--card-bg);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+#message-input { /* Assumindo um ID para a mensagem */
+    flex-grow: 1; /* Ocupa o máximo de espaço na linha */
+}
+
+/* Botão no grupo */
+button {
+  background: var(--primary-color);
+  color: var(--card-bg);
+  border: none;
+  border-radius: 10px;
+  padding: 15px 25px; /* Ajuste o padding para ser mais largo */
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  flex-shrink: 0; /* Não deixa o botão encolher */
+  width: auto;
+}
+
+button:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Media Query opcional para dispositivos menores */
+@media (max-width: 700px) {
+    form {
+        grid-template-columns: 1fr; /* Coluna única em telas pequenas */
+    }
+
+    .input-group {
+        grid-column: 1 / 2; /* Ocupa a coluna única */
+        flex-direction: column;
+    }
+    
+    #name-input {
+        order: -1; /* Coloca o nome no topo em mobile */
+    }
+}
